@@ -15,8 +15,8 @@ from pathlib import Path
 
 import os
 
-
-load_dotenv()
+dotenv_path = Path.joinpath(Path(__file__).resolve().parent.parent, '.env')
+load_dotenv(dotenv_path)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -133,7 +133,7 @@ STATIC_URL = 'static/'
 STATICILES_DIRS = [
     Path.joinpath(BASE_DIR, 'static'),
 ]
-
+STATIC_ROOT = 'static'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
