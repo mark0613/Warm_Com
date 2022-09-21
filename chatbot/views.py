@@ -11,4 +11,7 @@ parser = WebhookParser(settings.LINE_CHANNEL_SECRET)
 
 @csrf_exempt
 def receive_message(request):
-    return http.HttpResponse() 
+    return http.HttpResponse()
+
+def send_to_user(user_id: str, message: str):
+    line_bot_api.push_message(user_id, TextSendMessage(text=message))
