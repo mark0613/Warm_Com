@@ -27,8 +27,8 @@ BASE_DOMAIN = os.getenv('BASE_DOMAIN')
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-LINE_CHANNEL_ACCESS_TOKEN = os.getenv('LINE_CHANNEL_ACCESS_TOKEN')
-LINE_CHANNEL_SECRET = os.getenv('LINE_CHANNEL_SECRET')
+LINE_CHANNEL_ACCESS_TOKEN = str(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
+LINE_CHANNEL_SECRET = str(os.getenv('LINE_CHANNEL_SECRET'))
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
