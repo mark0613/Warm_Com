@@ -8,3 +8,6 @@ def view_index_page(request):
 
 def view_pair_page(request):
     return render(request, 'pair.html')
+
+def view_profile_page(request):
+    return render(request, 'profile.html')
