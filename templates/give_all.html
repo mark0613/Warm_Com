@@ -1,0 +1,53 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warm_Com</title>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="{% static 'js/give_all.js' %}"></script>
+    <script src="{% static 'img/warm_com_empty.png' %}"></script>
+</head>
+<style>
+    .candle {
+        /* position: absolute; */
+        border: none;
+        background: none;
+        
+    }
+    /* #candle1 {
+        width: 10px;
+        left: 0%;
+        top: 0%;
+    } */
+</style>
+<body>
+    <div class="container">
+        <div>
+            <img src="warm_com_empty.png" alt="image">  <!-- width="400px" -->
+        </div>
+        <div class="candle">
+            <button class="candle" id="candle1">
+                <img src="candle1.png" alt="image">
+            </button>
+            <button class="candle" id="candle2">
+                <img src="candle2.png" alt="image">
+            </button>
+            <button class="candle" id="candle3">
+                <img src="candle3.png" alt="image">
+            </button>
+            <button class="candle" id="candle4">
+                <img src="candle4.png" alt="image">
+            </button>
+            <button class="candle" id="candle5">
+                <img src="candle5.png" alt="image">
+            </button>
+        </div>
+    </div>
+</body>
+</html>
