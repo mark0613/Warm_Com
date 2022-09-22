@@ -8,9 +8,12 @@ class Counselor(models.Model):
     GENDER_CHOICES = ((MALE, "男"), (FEMALE, "女"), (NONE, "不透露"))
 
     user_id = models.CharField('user_id', max_length=33)
+    user_name = models.CharField('user_name', max_length=50)
     gender = models.CharField('gender', choices=GENDER_CHOICES, default=NONE, max_length=10)
     age = models.IntegerField('age', default=None, null=True, blank=True)
     job = models.CharField('job', max_length=255, null=True, blank=True)
+    description = models.TextField('description')
+    image = models.TextField('image')
     is_professional = models.BooleanField('is_professional', default=False)
     can_be_paired = models.BooleanField('can_be_paired', default=True)
     target = models.ManyToManyField('Target', blank=True)
