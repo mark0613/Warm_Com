@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Warm_Com</title>
+
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- bootstap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    
+</head>
+<script>
+    ARTICLE = {
+        title: "文章標題",
+        content: "文章內容",
+        time: "文章日期",
+        "replys" : [
+            {
+                "reply_id" : 1,
+                "content" : "AAA"
+            },
+            {
+                "reply_id" : 2,
+                "content" : "BBB"
+            },
+            {
+                "reply_id" : 3,
+                "content" : "CCC"
+            }
+        ],
+    }
+    function putArticle(){
+        $('#date small').text(ARTICLE["time"])
+        $('#title').text(ARTICLE["title"])
+        $('#content').text(ARTICLE["content"])
+    }
+    function putReply(){
+        let reply = $('.reply')
+        for (let element of ARTICLE["replys"]) {
+            reply.append(
+                `
+                <div class="card border-dark mb-3" style="max-width: 18rem;">
+                    <div class="card-body text-dark">
+                    <p class="card-text">${element["content"]}</p>
+                    </div>
+                </div>
+                `
+            )
+        }
+    }
+    $(document).ready(() => {
+        putArticle()
+        putReply()
+        $("#back").click(() => {
+            window.location.replace("receive_all");
+        })
+});
+</script>
+<body>
+    <div class="container">
+        <div class="back">
+            <button type="button" class="btn btn-light" id="back">
+                <img src="back.png" alt="image" width="30px">
+            </button>
+        </div>
+        <div class="date" id="date">
+            <img src="candle1.png" alt="image" width="50px"><br>
+            <small>date</small>
+        </div>
+        <div class="article">
+            <div class="card">
+                <div class="card-header">
+                  <h6 id="title">Title</h6>
+                </div>
+                <div class="card-body">
+                    <p id="content">content</p>
+                </div>
+              </div>
+        </div>
+        <div class="reply"></div>
+    </div>
+</body>
+</html>
