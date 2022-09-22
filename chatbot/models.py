@@ -13,9 +13,13 @@ class Counselor(models.Model):
     job = models.CharField('job', max_length=255, null=True, blank=True)
     is_professional = models.BooleanField('is_professional', default=False)
     can_be_paired = models.BooleanField('can_be_paired', default=True)
+    target = models.ManyToManyField('Target', blank=True)
 
 class Target(models.Model):
     type = models.CharField('type', max_length=50)
+
+    def __str__(self):
+        return self.type
 
 class Article(models.Model):
     title = models.CharField('title', max_length=255)
