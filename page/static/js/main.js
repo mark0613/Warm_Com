@@ -1,4 +1,4 @@
-async function getUserId() {
+async function getUserProfile() {
     return await liff
     .init({
         liffId: "1657491571-L0G01dnZ",
@@ -13,7 +13,7 @@ async function getUserId() {
     )
     .then(
         (resolve) => {
-            return resolve["userId"];
+            return resolve;
         },
         (reject) => {
             // alert("Error")
@@ -24,7 +24,7 @@ async function getUserId() {
 
 window.onload = async function() {
     // TODO: loading(spinner )
-    let data = await getUserId();
+    let data = await getUserProfile();
     // TODO: remove loading
     console.log(data);
 }
