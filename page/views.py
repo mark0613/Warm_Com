@@ -17,3 +17,12 @@ def view_give_all_page(request):
 
 def view_give_page(request):
     return render(request, 'give.html')
+
+def view_receive_all_page(request):
+    return render(request, 'receive_all.html')
+
+def view_receive_page(request):
+    return render(request, 'receive.html')
+
+def view_article_page(request):
+    return render(request, 'article.html')
