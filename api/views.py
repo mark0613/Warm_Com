@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django import http
 from django.views.decorators.csrf import csrf_exempt
 
-from chatbot.models import Counselor, Target
+from chatbot.models import Counselor, Target, Article, Reply
 
 from chatbot.views import (
     send_counselors_information_to_user,
@@ -87,3 +87,48 @@ def counselor_profile_process(request):
         for target in targets:
             counselor.target.add(Target.objects.get(id=target))
         return http.JsonResponse({ "message" : "成功" }, status=201)
+
+@csrf_exempt
+def create_article(request):
+    if request.method == "POST":
+        user_id = request.POST['user_id']
+        title = request.POST.get('title')
+        content = request.POST.get('content')
+        print(user_id, title, content)
+        article = Article.objects.create(creator=user_id, title=title, content=content)
+        article.save()
+        return http.JsonResponse({'message': '成功'}, status=201)
+    return http.JsonResponse({'message': '失敗'}, status=404)
+
+def get_article(request, id):
+    try:
+        article = Article.objects.get(id=id)
+    except Article.DoesNotExist:
+        return http.JsonResponse({'message': '失敗'}, status=404)
+    return_data = {}
+    return_data['title'] = article.title
+    return_data['content'] = article.content
+
+    replies = Reply.objects.filter(article=article)
+    reply_data = []
+    for reply in replies:
+        reply_data.append({
+            'reply_id': reply.id,
+            'content': reply.content,
+            'time': reply.time
+        })
+    return_data['replies'] = reply_data
+    return_data['time'] = article.time
+    return http.JsonResponse(return_data, status=201)
+
+@csrf_exempt
+def create_reply(request):
+    if request.method == 'POST':
+        article_id = request.POST.get('article_id')
+        user_id = request.POST.get('user_id')
+        content = request.POST.get('content')
+        article = Article.objects.get(id=article_id)
+        reply = Reply.objects.create(article=article, creator=user_id, content=content)
+        reply.save()
+        return http.JsonResponse({'message': '成功'}, status=201)
+    return http.JsonResponse({'message': '失敗'}, status=404)
