@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,10 +6,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warm_Com</title>
-
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
     <!-- bootstap -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
@@ -16,12 +13,21 @@
 
     <!-- switch -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-switch/3.3.4/js/bootstrap-switch.js" data-turbolinks-track="true"></script>
-
+    
     <!-- multi select -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/css/bootstrap-select.min.css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.14/dist/js/bootstrap-select.min.js"></script>
+    
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- liff sdk -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <script>
+    let liffId = "1657491571-WOlLDPB1";
     function getGender(){
         let gender = $('input[name=genderInline]:checked').val()
         if (gender === "none")
@@ -48,25 +54,38 @@
         let can_be_paired = $('#pair').bootstrapSwitch('state');
         return can_be_paired
     }
-    function handle(){
+    function getTypes(){
         let type = $('#type').val()
         return type
     }
-    function sentProfile() {
+
+    async function sendProfile() {
+        let profile = await getUserProfile(liffId);
         let data = {
-                "user_id" : "",
-                "gender" : getGender(),
-                "age" : getAge(),
-                "job" : getJob(),
-                "is_professional" : isProfessional(),
-                "can_be_paired" : canBePaired(),
-                "handle" : handle()
+            "user_id" : profile.userId,
+            "user_name" : profile.displayName,
+            "image" : profile.pictureUrl,
+            "gender" : getGender(),
+            "age" : getAge(),
+            "job" : getJob(),
+            "description" : "...",
+            "is_professional" : isProfessional(),
+            "can_be_paired" : canBePaired(),
+            "targets" : getTypes()
+        }
+        jq.post(
+            "/api/counselor",
+            data,
+            (response) => {
+                alert(response.message);
+                closeLiffWindow(liffId);
             }
-        console.log(data)
+        )
+        
     }
     $(document).ready(() => {
         $("#save").click(() => {
-            sentProfile()
+            sendProfile();
         })
     });
 </script>
@@ -76,15 +95,15 @@
         <div class="gender">
             <span>性別：</span>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="gender-male" name="genderInline" class="custom-control-input" value="1">
+                <input type="radio" id="gender-male" name="genderInline" class="custom-control-input" value="男">
                 <label class="custom-control-label" for="gender-male">男</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="gender-female" name="genderInline" class="custom-control-input" value="0">
+                <input type="radio" id="gender-female" name="genderInline" class="custom-control-input" value="女">
                 <label class="custom-control-label" for="gender-female">女</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="profess" name="genderInline" class="custom-control-input" value="none">
+                <input type="radio" id="profess" name="genderInline" class="custom-control-input" value="不透漏">
                 <label class="custom-control-label" for="profess">不願透露</label>
             </div>
         </div>
@@ -99,7 +118,7 @@
         </div>
         <div class="handle">
             <label>負責領域：</label> 
-            <select class="selectpicker" multiple title="請選擇類別(可複選)" id="type">
+            <select class="selectpicker" multiple title="請選擇類別" id="type">
                 <option value="1">人際</option>
                 <option value="2">經濟</option>
                 <option value="3">學業</option>
