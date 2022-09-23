@@ -18,6 +18,9 @@ class Counselor(models.Model):
     can_be_paired = models.BooleanField('can_be_paired', default=True)
     target = models.ManyToManyField('Target', blank=True)
 
+    def __str__(self):
+        return self.user_name
+
 class Target(models.Model):
     type = models.CharField('type', max_length=50)
 
@@ -28,10 +31,16 @@ class Article(models.Model):
     title = models.CharField('title', max_length=255)
     creator = models.CharField('creator', max_length=33)
     content = models.TextField('content')
-    time = models.DateTimeField('time', default=datetime.date.today)
+    time = models.DateTimeField('time', default=datetime.datetime.now)
+
+    def __str__(self):
+        return str(self.id) + ": " + self.title + " - " + self.creator
 
 class Reply(models.Model):
     article = models.ForeignKey('Article', on_delete=models.CASCADE)
     creator = models.CharField('creator', max_length=33)
     content = models.TextField('content')
-    time = models.DateTimeField('time', default=datetime.date.today)
+    time = models.DateTimeField('time', default=datetime.datetime.now)
+
+    def __str__(self):
+        return self.article.title
