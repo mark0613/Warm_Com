@@ -11,41 +11,59 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script src="{% static 'js/give_all.js' %}"></script>
-    <script src="{% static 'img/warm_com_empty.png' %}"></script>
 </head>
 <style>
     .candle {
         /* position: absolute; */
         border: none;
         background: none;
-        
     }
-    /* #candle1 {
-        width: 10px;
-        left: 0%;
-        top: 0%;
-    } */
+    #candle1 ,#candle2, #candle3, #candle4, #candle5{
+        position: absolute;
+        width: 70px;
+    }
+    #candle1 {
+        left: 14%;
+        top: 37%;
+    }
+    #candle2 {
+        left: 28%;
+        top: 29%;
+    }
+    #candle3 {
+        left: 43%;
+        top: 38%;
+    }
+    #candle4 {
+        left: 50%;
+        top: 25%;
+    }
+    #candle5 {
+        left: 66%;
+        top: 41%;
+        width: 90px;
+    }
 </style>
 <body>
     <div class="container">
         <div>
-            <img src="warm_com_empty.png" alt="image">  <!-- width="400px" -->
+            <img src="{% static 'img/warm_com_empty.png' %}" alt="image" width="360px">  <!-- width="400px" -->
         </div>
         <div class="candle">
-            <button class="candle" id="candle1">
-                <img src="candle1.png" alt="image">
+            <button class="candle">
+                <img src="{% static 'img/candle1.png' %}" alt="image" id="candle1">
             </button>
-            <button class="candle" id="candle2">
-                <img src="candle2.png" alt="image">
+            <button class="candle">
+                <img src="{% static 'img/candle2.png' %}" alt="image" id="candle2">
             </button>
-            <button class="candle" id="candle3">
-                <img src="candle3.png" alt="image">
+            <button class="candle">
+                <img src="{% static 'img/candle3.png' %}" alt="image" id="candle3">
             </button>
-            <button class="candle" id="candle4">
-                <img src="candle4.png" alt="image">
+            <button class="candle">
+                <img src="{% static 'img/candle4.png' %}" alt="image" id="candle4">
             </button>
-            <button class="candle" id="candle5">
-                <img src="candle5.png" alt="image">
+            <button class="candle">
+                <img src="{% static 'img/candle5.png' %}" alt="image" id="candle5">
             </button>
         </div>
     </div>

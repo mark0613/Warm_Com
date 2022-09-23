@@ -21,15 +21,31 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script src="{% static 'js/give.js' %}"></script>
 </head>
+<style>
+    #back {
+        position:absolute;
+        right: 0%;
+    }
+    #date {
+        text-align: center;
+    }
+    img {
+        display: inline-block;
+        margin-top: 7%;
+    }
+    div {
+        margin-bottom: 5%;
+    }
+</style>
 <body>
     <div class="container">
         <div class="back">
             <button type="button" class="btn btn-light" id="back">
-                <img src="back.png" alt="image" width="30px">
+                <img src="{% static 'img/back.png' %}" alt="image" width="30px">
             </button>
         </div>
         <div class="date" id="date">
-            <img src="candle1.png" alt="image" width="50px"><br>
+            <img src="{% static 'img/candle1.png' %}" alt="image" width="50px"><br>
             <small>date</small>
         </div>
         <div class="article">

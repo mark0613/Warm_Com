@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -66,11 +67,11 @@
     <div class="container">
         <div class="back">
             <button type="button" class="btn btn-light" id="back">
-                <img src="back.png" alt="image" width="30px">
+                <img src="{% static 'img/back.png' %}" alt="image" width="30px">
             </button>
         </div>
         <div class="date" id="date">
-            <img src="candle1.png" alt="image" width="50px"><br>
+            <img src="{% static 'img/candle1.png' %}" alt="image" width="50px"><br>
             <small>date</small>
         </div>
         <div class="article">
