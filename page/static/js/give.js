@@ -39,7 +39,8 @@ function giveReply(){
 $(document).ready(() => {
     putArticle()
     $("#reply").click(() => {
-        giveReply() 
+        giveReply()
+        window.location.replace("give_all");
     })
     $("#back").click(() => {
         window.location.replace("give_all");
