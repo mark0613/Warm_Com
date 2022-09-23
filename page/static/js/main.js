@@ -1,3 +1,5 @@
+var jq = $.noConflict();
+
 async function getUserProfile() {
     return await liff
     .init({
