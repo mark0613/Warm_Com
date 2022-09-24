@@ -8,6 +8,6 @@ urlpatterns = [
     path('give_all', views.view_give_all_page),
     path('reply/<int:id>', views.view_reply_page),
     path('receive_all', views.view_receive_all_page),
-    path('receive', views.view_receive_page),
+    path('receive/<int:id>', views.view_receive_page),
     path('article', views.view_article_page)
 ]

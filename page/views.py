@@ -27,8 +27,11 @@ def view_reply_page(request, id):
 def view_receive_all_page(request):
     return render(request, 'receive_all.html')
 
-def view_receive_page(request):
-    return render(request, 'receive.html')
+def view_receive_page(request, id):
+    content = {
+        "article_id" : id,
+    }
+    return render(request, 'receive.html', content)
 
 def view_article_page(request):
     return render(request, 'article.html')
