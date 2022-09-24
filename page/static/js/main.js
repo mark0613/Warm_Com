@@ -38,5 +38,5 @@ window.onload = async function() {
     // TODO: loading(spinner )
     // let data = await getUserProfile("1657491571-L0G01dnZ");
     // TODO: remove loading
-    console.log(data);
+    // console.log(data);
 }
