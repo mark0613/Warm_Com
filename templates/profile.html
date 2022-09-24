@@ -29,8 +29,8 @@
         return Boolean(is_professional)
     }
     function canBePaired(){
-        let can_be_paired = $('#pair').bootstrapSwitch('state');
-        return can_be_paired
+        let can_be_paired = $('#pair').prop('checked');
+        return can_be_paired;
     }
     function getTypes(){
         let type = $('#type').val()
@@ -55,7 +55,7 @@
             "targets" : getTypes(),
             "line_id" : getLineId()
         }
-        //console.log(data)
+        // console.log(data)
         jq.post(
             "/api/counselor",
             data,
