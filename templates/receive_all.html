@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,53 +13,40 @@
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- liff sdk -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <script>
-    ARTICLE = {
-        "article" : [
-            {
-                "article_id": 100,
-                "title": "文章標題",
-                "content": "文章內容",
-                "time": "文章日期",
-                "reply_count": 3
-            },
-            {
-                "article_id": 200,
-                "title": "文章標題",
-                "content": "文章內容",
-                "time": "文章日期",
-                "reply_count": 40
-            },
-            {
-                "article_id": 300,
-                "title": "文章標題",
-                "content": "文章內容",
-                "time": "文章日期",
-                "reply_count": 15
-            }    
-        ]   
-    }
-    function putAllArticle(){
-        let reply = $('.reply')
-        for (let element of ARTICLE["article"]) {
-            reply.append(
-                `
-                <div class="card w-100">
-                    <div class="card-body">
-                        <h6 class="card-title">${element["title"]}</h6>
-                        <span>${element["content"]}</span><br>
-                        <span>${element["time"]}</span>
-                        <span>${element["reply_count"]}</span>
-                        <button type="button" class="btn btn-warning" id="reply-${element["article_id"]} 
-                        onclick="watchAllReply(${element["article_id"]})">
-                            查看留言
-                        </button>
-                    </div>
-                </div>
-                `
-            )
-        }
+    async function putAllArticle(){
+        let profile = await getUserProfile();
+        let reply = $('.reply');
+        jq.get(
+            `/api/articles/${profile.userId}`,
+            {},
+            (response) => {
+                for (let element of response["articles"]) {
+                    reply.append(
+                        `
+                        <div class="card w-100">
+                            <div class="card-body">
+                                <h6 class="card-title">${element["title"]}</h6>
+                                <span>${element["content"]}</span><br>
+                                <span>${element["time"]}</span>
+                                <span>${element["replies"]}</span>
+                                <button type="button" class="btn btn-warning" id="reply-${element["article_id"]} 
+                                onclick="watchAllReply(${element["article_id"]})">
+                                    查看留言
+                                </button>
+                            </div>
+                        </div>
+                        `
+                    )
+                }
+            }
+        )
     }
     function watchAllReply(id){
         console.log("success")

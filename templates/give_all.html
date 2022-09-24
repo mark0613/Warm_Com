@@ -6,51 +6,39 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Warm_Com</title>
+    <!-- bootstap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <!-- <script src="{% static 'js/give_all.js' %}"></script> -->
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <script>
-    ARTICLE = [
-    {
-        "article_id": 100,
-        "reply_count": 5
-    },
-    {
-        "article_id": 200,
-        "reply_count": 0
-    },
-    {
-        "article_id": 300,
-        "reply_count": 1
-    },
-    {
-        "article_id": 400,
-        "reply_count": 0
-    },
-    {
-        "article_id": 500,
-        "reply_count": 0
+    function replaceCandle(){
+        jq.get(
+            "/api/articles?limit=5",
+            {},
+            (response) => {
+                for (let i=0; i<response.length; i++) {
+                    let id = response[i]["article_id"];
+                    $(`#candle${i}`).attr('id',`${id}`);
+                    if (response[i]["replies"] === 0) {
+                        $(`#${id}`).attr('src', `{% static 'img/candle-dark.png' %}`);
+                    }
+                }
+            }
+        )
     }
-]
-function replaceCandle(){
-    for (let i=0; i<ARTICLE.length; i++) {
-        let id = ARTICLE[i]["article_id"];
-        $(`#candle${i}`).attr('id',`${id}`);
-        if (ARTICLE[i]["reply_count"] === 0) {
-            $(`#${id}`).attr('src', `{% static 'img/candle-dark.png' %}`);
-        }
+    function turnToReplyPage(item){
+        let id = $(item).children().attr('id');
+        window.location.href = `reply/${id}`;
     }
-}
-function turnToReplyPage(item){
-    let id = $(item).children().attr('id');
-    window.location.href = `reply/${id}`;
-}
-$(document).ready(() => {
-    replaceCandle()
-});
+    $(document).ready(() => {
+        replaceCandle()
+    });
 </script>
 <style>
     .candle {
