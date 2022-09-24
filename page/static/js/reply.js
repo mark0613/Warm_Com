@@ -25,9 +25,9 @@ async function giveReply(){
 $(document).ready(() => {
     $("#reply").click(async () => {
         await giveReply()
-        window.location.href = "/page/give_all";
+        window.location.href = "/page/candles";
     })
     $("#back").click(() => {
-        window.location.href = "/page/give_all";
+        window.location.href = "/page/candles";
     })
 });
