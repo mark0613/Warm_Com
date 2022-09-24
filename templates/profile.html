@@ -45,6 +45,12 @@
             return null
         return job
     }
+    function getDescription(){
+        let description = $("#description").val()
+        if (description === "")
+            return null
+        return description
+    }
     function isProfessional(){
         let is_professional = $('input[name=profession]:checked').val()
         return Boolean(is_professional)
@@ -57,7 +63,10 @@
         let type = $('#type').val()
         return type
     }
-
+    function getLineId(){
+        let line_id = $('#text-line-id').val()
+        return line_id
+    }
     async function sendProfile() {
         let profile = await getUserProfile();
         let data = {
@@ -67,10 +76,11 @@
             "gender" : getGender(),
             "age" : getAge(),
             "job" : getJob(),
-            "description" : "...",
+            "description" : getDescription(),
             "is_professional" : isProfessional(),
             "can_be_paired" : canBePaired(),
-            "targets" : getTypes()
+            "targets" : getTypes(),
+            "line_id" : getLineId()
         }
         jq.post(
             "/api/counselor",
@@ -88,6 +98,11 @@
         })
     });
 </script>
+<style>
+    textarea {
+        resize: none;
+    }
+</style>
 <body>
     <div class="container">
         <h4>基本資料</h4>
@@ -108,12 +123,11 @@
         </div>
         <div class="age">
             <label>年齡：</label>
-            <input type="text" id="age">
-            <span>(若不願透露則空白)</span>
+            <input type="text" id="age" placeholder="若不願透露則空白即可"><br>
         </div>
         <div class="job">
             <label>職業：</label>
-            <input type="text" id="job">
+            <input type="text" id="job" placeholder="若不願透露則空白即可"><br>
         </div>
         <div class="handle">
             <label>負責領域：</label> 
@@ -126,6 +140,10 @@
                 <option value="6">其他</option>
             </select>
         </div>
+        <div class="description">
+            <label>自介：</label>
+            <textarea placeholder="簡單介紹一下你自己.." cols="25%" rows="5%" id="description"></textarea>
+        </div>
         <div class="professional">
             <label>是否有諮商師執照：</label>
             <div class="custom-control custom-radio custom-control-inline">
@@ -136,6 +154,10 @@
                 <input type="radio" id="non-pro" name="profession" class="custom-control-input" value="">
                 <label class="custom-control-label" for="non-pro">否</label>
             </div>
+        </div>
+        <div class="line-id">
+            <label id="label-line-id">Line ID：</label>
+            <input type="text" id="text-line-id" placeholder=""><br>
         </div>
         <div class="pair">
             <div class="custom-control custom-switch">
