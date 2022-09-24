@@ -10,34 +10,74 @@
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
-    <script src="{% static 'js/give_all.js' %}"></script>
+    <!-- <script src="{% static 'js/give_all.js' %}"></script> -->
 </head>
+<script>
+    ARTICLE = [
+    {
+        "article_id": 100,
+        "reply_count": 5
+    },
+    {
+        "article_id": 200,
+        "reply_count": 0
+    },
+    {
+        "article_id": 300,
+        "reply_count": 1
+    },
+    {
+        "article_id": 400,
+        "reply_count": 0
+    },
+    {
+        "article_id": 500,
+        "reply_count": 0
+    }
+]
+function replaceCandle(){
+    for (let i=0; i<ARTICLE.length; i++) {
+        let id = ARTICLE[i]["article_id"];
+        $(`#candle${i}`).attr('id',`${id}`);
+        if (ARTICLE[i]["reply_count"] === 0) {
+            $(`#${id}`).attr('src', `{% static 'img/candle-dark.png' %}`);
+        }
+    }
+}
+function turnToReplyPage(item){
+    let id = $(item).children().attr('id');
+    window.location.href = `reply/${id}`;
+}
+$(document).ready(() => {
+    replaceCandle()
+});
+</script>
 <style>
     .candle {
         border: none;
         background: none;
     }
-    #candle1 ,#candle2, #candle3, #candle4, #candle5{
+    .candle0 ,.candle1, .candle2, .candle3, .candle4 {
         position: absolute;
         width: 70px;
     }
-    #candle1 {
+    .candle0 {
         left: 14%;
         top: 37%;
     }
-    #candle2 {
+    .candle1 {
         left: 28%;
         top: 29%;
     }
-    #candle3 {
+    .candle2 {
         left: 43%;
         top: 38%;
     }
-    #candle4 {
+    .candle3 {
         left: 50%;
         top: 25%;
     }
-    #candle5 {
+    .candle4 {
         left: 66%;
         top: 41%;
         width: 90px;
@@ -48,21 +88,21 @@
         <div>
             <img src="{% static 'img/warm_com_empty.png' %}" alt="image" width="360px">  <!-- width="400px" -->
         </div>
-        <div class="candle">
-            <button class="candle">
-                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle1">
+        <div class="candles">
+            <button class="candle" onclick="turnToReplyPage(this)">
+                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle0" class="candle0">
             </button>
-            <button class="candle">
-                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle2">
+            <button class="candle" onclick="turnToReplyPage(this)">
+                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle1" class="candle1">
             </button>
-            <button class="candle">
-                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle3">
+            <button class="candle" onclick="turnToReplyPage(this)">
+                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle2" class="candle2">
             </button>
-            <button class="candle">
-                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle4">
+            <button class="candle" onclick="turnToReplyPage(this)">
+                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle3" class="candle3">
             </button>
-            <button class="candle">
-                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle5">
+            <button class="candle" onclick="turnToReplyPage(this)">
+                <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle4" class="candle4">
             </button>
         </div>
     </div>
