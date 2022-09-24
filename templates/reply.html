@@ -1,28 +1,7 @@
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Warm_Com</title>
-    <!-- bootstap -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
-    
-    <!-- bootstrap icon -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    
-    <!-- jquery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    
-    <!-- liff sdk -->
-    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+{% extends 'base.html' %}
 
-    <script src="{% static 'js/main.js' %}"></script>
-    <script src="{% static 'js/reply.js' %}"></script>
-</head>
+{% block js_or_css %}
+<script src="{% static 'js/reply.js' %}"></script>
 <style>
     #back {
         position:absolute;
@@ -55,38 +34,39 @@
         margin: 0;
     }
 </style>
-<body>
-    <div class="container">
-        <div class="back">
-            <button type="button" class="btn" id="back">
-                <img src="{% static 'img/back.png' %}" alt="image" width="30px">
-            </button>
-        </div>
-        <div class="date" id="date">
-            <img src="{% static 'img/candle-bright.png' %}" alt="image" width="75px"><br>
-            <small>{{ article.time }}</small>
-        </div>
-        <div class="article">
-            <div class="card">
-                <div class="card-header">
-                  <h6 id="title">{{ article.title }}</h6>
-                </div>
-                <div class="card-body">
-                    <p id="content">{{ article.content }}</p>
-                </div>
-              </div>
-        </div>
-        <div class="givereply">
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="給予鼓勵..." id="reply-content">
-                <input type="hidden" name="article-id" value="{{ article.id }}">
-                <div class="input-group-append">
-                  <button class="btn btn-outline-secondary" type="button" id="reply">
-                    <i class="bi bi-send"></i>
-                  </button>
-                </div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="back">
+        <button type="button" class="btn" id="back">
+            <img src="{% static 'img/back.png' %}" alt="image" width="30px">
+        </button>
+    </div>
+    <div class="date" id="date">
+        <img src="{% static 'img/candle-bright.png' %}" alt="image" width="75px"><br>
+        <small>{{ article.time }}</small>
+    </div>
+    <div class="article">
+        <div class="card">
+            <div class="card-header">
+              <h6 id="title">{{ article.title }}</h6>
+            </div>
+            <div class="card-body">
+                <p id="content">{{ article.content }}</p>
+            </div>
+          </div>
+    </div>
+    <div class="givereply">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="給予鼓勵..." id="reply-content">
+            <input type="hidden" name="article-id" value="{{ article.id }}">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary" type="button" id="reply">
+                <i class="bi bi-send"></i>
+              </button>
             </div>
         </div>
     </div>
-</body>
-</html>
+</div>
+{% endblock  %}
