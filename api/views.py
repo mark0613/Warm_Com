@@ -69,6 +69,7 @@ def counselor_profile_process(request):
     if request.method == 'POST':
         user_id = request.POST['user_id']
         user_name = request.POST['user_name']
+        line_id = request.POST['line_id']
         gender = request.POST['gender']
         image = request.POST['image']
         age = get_null_value(request.POST['age'])
@@ -80,6 +81,7 @@ def counselor_profile_process(request):
         counselor = Counselor.objects.create(
             user_id = user_id,
             user_name = user_name,
+            line_id = line_id,
             gender = gender,
             image = image,
             age = age,

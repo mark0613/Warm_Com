@@ -9,6 +9,7 @@ class Counselor(models.Model):
 
     user_id = models.CharField('user_id', max_length=33)
     user_name = models.CharField('user_name', max_length=50)
+    line_id = models.CharField('line_id', max_length=255)
     gender = models.CharField('gender', choices=GENDER_CHOICES, default=NONE, max_length=10)
     age = models.IntegerField('age', default=None, null=True, blank=True)
     job = models.CharField('job', max_length=255, null=True, blank=True)
