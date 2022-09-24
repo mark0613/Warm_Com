@@ -3,11 +3,6 @@ ARTICLE = {
     content: "文章內容",
     time: "文章日期"
 }
-function putArticle(){
-    $('#date small').text(ARTICLE["time"])
-    $('#title').text(ARTICLE["title"])
-    $('#content').text(ARTICLE["content"])
-}
 function getArticleId(){
     let url = location.href
     let article_id = url.split('/').slice(-1)

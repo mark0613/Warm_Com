@@ -61,21 +61,22 @@
         </div>
         <div class="date" id="date">
             <img src="{% static 'img/candle1.png' %}" alt="image" width="75px"><br>
-            <small>date</small>
+            <small>{{ article.time }}</small>
         </div>
         <div class="article">
             <div class="card">
                 <div class="card-header">
-                  <h6 id="title">Title</h6>
+                  <h6 id="title">{{ article.title }}</h6>
                 </div>
                 <div class="card-body">
-                    <p id="content">content</p>
+                    <p id="content">{{ article.content }}</p>
                 </div>
               </div>
         </div>
         <div class="givereply">
             <div class="input-group mb-3">
                 <input type="text" class="form-control" placeholder="給予鼓勵..." id="reply-content">
+                <input type="hidden" name="article-id" value="{{ article.id }}">
                 <div class="input-group-append">
                   <button class="btn btn-outline-secondary" type="button" id="reply">
                     <i class="bi bi-send"></i>
