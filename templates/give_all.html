@@ -41,6 +41,10 @@
     });
 </script>
 <style>
+    #empty {
+        position: absolute;
+        left: 0%;
+    }
     .candle {
         border: none;
         background: none;
@@ -73,8 +77,8 @@
 </style>
 <body>
     <div class="container">
-        <div>
-            <img src="{% static 'img/warm_com_empty.png' %}" alt="image" width="360px">  <!-- width="400px" -->
+        <div class="center">
+            <img src="{% static 'img/warm_com_empty.png' %}" alt="image" width="375px" id="empty">
         </div>
         <div class="candles">
             <button class="candle" onclick="turnToReplyPage(this)">
