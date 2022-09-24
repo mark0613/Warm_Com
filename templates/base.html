@@ -35,5 +35,12 @@
 <body>
     {% block content %}
     {% endblock %}
+    <div class="cover-spinner hidden" id="cover-spinner">
+        <div class="spinner d-flex justify-content-center">
+            <div class="spinner-border text-warning" role="status" style="height: 100px; width: 100px; font-size: 30px;">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

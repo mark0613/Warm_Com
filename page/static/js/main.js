@@ -36,6 +36,14 @@ async function closeLiffWindow() {
     })
 }
 
+function showSpinner() {
+    $("#cover-spinner").show();
+}
+
+function hideSpinner() {
+    $("#cover-spinner").hide();
+}
+
 window.onload = async function() {
     // TODO: loading(spinner )
     // let data = await getUserProfile();

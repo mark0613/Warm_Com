@@ -16,3 +16,19 @@ input {
 input:focus, textarea:focus {
     border: 2px solid #FFD306;
 }
+
+.cover-spinner {
+    position: absolute;
+    background-color: rgba(255, 255, 255, 0.5);
+    top: 0px;
+    width: 100%;
+    min-height: 700px;
+    z-index: 999;
+}
+.cover-spinner .spinner {
+    position: relative;
+    top: 150px;
+}
+.hidden {
+    display: none;
+}
