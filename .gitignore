@@ -26,3 +26,6 @@ venv.bak/
 !.vscode/launch.json 
 !.vscode/extensions.json 
 .history
+
+# our information
+team_info.py
