@@ -102,11 +102,26 @@
     textarea {
         resize: none;
     }
+    .center {
+        margin: 10px;
+        text-align: center;
+    }
+    .padding-5 {
+        padding: 5px;
+        padding-left: 5%;
+    }
+    input, textarea {
+        outline: none;
+    }
+    input:focus, textarea:focus {
+        border: 2px solid #fce77d;
+        box-shadow: 0 0 20px #EAC100;
+    }
 </style>
 <body>
     <div class="container">
-        <h4>基本資料</h4>
-        <div class="gender">
+        <h4 class="center">基本資料</h4>
+        <div class="gender padding-5">
             <span>性別：</span>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" id="gender-male" name="genderInline" class="custom-control-input" value="男">
@@ -121,15 +136,19 @@
                 <label class="custom-control-label" for="profess">不願透露</label>
             </div>
         </div>
-        <div class="age">
+        <div class="age padding-5">
             <label>年齡：</label>
             <input type="text" id="age" placeholder="若不願透露則空白即可"><br>
         </div>
-        <div class="job">
+        <div class="job padding-5">
             <label>職業：</label>
             <input type="text" id="job" placeholder="若不願透露則空白即可"><br>
         </div>
-        <div class="handle">
+        <div class="description padding-5">
+            <label>簡介：</label>
+            <textarea placeholder="簡單介紹一下你自己..." cols="25%" rows="5%" id="description"></textarea>
+        </div>
+        <div class="handle padding-5">
             <label>負責領域：</label> 
             <select class="selectpicker" multiple title="請選擇類別" id="type">
                 <option value="1">人際</option>
@@ -140,11 +159,7 @@
                 <option value="6">其他</option>
             </select>
         </div>
-        <div class="description">
-            <label>自介：</label>
-            <textarea placeholder="簡單介紹一下你自己.." cols="25%" rows="5%" id="description"></textarea>
-        </div>
-        <div class="professional">
+        <div class="professional padding-5">
             <label>是否有諮商師執照：</label>
             <div class="custom-control custom-radio custom-control-inline">
                 <input type="radio" id="pro" name="profession" class="custom-control-input" value="1">
@@ -155,18 +170,18 @@
                 <label class="custom-control-label" for="non-pro">否</label>
             </div>
         </div>
-        <div class="line-id">
-            <label id="label-line-id">Line ID：</label>
+        <div class="line-id padding-5">
+            <label id="label-line-id padding-5">Line ID：</label>
             <input type="text" id="text-line-id" placeholder=""><br>
         </div>
-        <div class="pair">
+        <div class="pair center">
             <div class="custom-control custom-switch">
                 <input type="checkbox" class="custom-control-input" id="pair" name="pair">
-                <label class="custom-control-label" for="pair">開啟配對機制(***待處理***)</label>
+                <label class="custom-control-label" for="pair">開啟配對機制</label>
             </div>
         </div>
-        <div class="save">
-            <button type="button" class="btn btn-primary" id="save">儲存</button>
+        <div class="save center">
+            <button type="button" class="btn btn-warning" id="save">儲存</button>
         </div>
     </div>
 </body>
