@@ -18,6 +18,7 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
     <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <script>
     async function putAllArticle(){
@@ -48,17 +49,80 @@
             }
         )
     }
+    function tmpPutAllArticle(){
+        let ARTICLE = {
+            "articles" : [
+                {
+                    "title": "QQQQQQQQQQ文章標題",
+                    "content": "BBBBBBBBBBBBBBBBBBBBBBBBBBBB文章內容",
+                    "time": "2022-09-30",
+                    "replies": 3,
+                    "article_id": 100
+                },
+                {
+                    "title": "AAAAAAAAAAAAAAAAAAAAA文章標題",
+                    "content": "BBBBBFFFFFFFFFFFFFFFF文章內容",
+                    "time": "2022-09-24",
+                    "replies": 4,
+                    "article_id": 200
+                },
+            ]
+        }
+        let reply = $('.reply');
+        for (let element of ARTICLE["articles"]) {
+            reply.append(
+                `
+                <div class="card w-100 margin-10">
+                    <div class="card-body">
+                        <h6 class="card-title">${element["title"]}</h6>
+                        <small>${element["time"]}</small>
+                        <p>${element["content"]}</p>
+                        <small>留言數：${element["replies"]}</small>
+                        <button type="button" class="btn btn-warning" id="reply-${element["article_id"]} 
+                        onclick="watchAllReply(${element["article_id"]})">
+                            查看留言
+                        </button>
+                    </div>
+                </div>
+                `
+            )
+        }
+    }
     function watchAllReply(id){
         console.log("success")
         window.location.href =`receive/${id}`;
     }
     $(document).ready(() => {
-        putAllArticle()
+        tmpPutAllArticle()
+        //putAllArticle()
     });
 </script>
+<style>
+    .margin-10 {
+        margin-bottom: 10px;
+    }
+    .card-body {
+        border: 1px solid #FFD306;
+    }
+    .card-title {
+        margin: 0;
+    }
+    button {
+        position: absolute;
+        right: 5%;
+    }
+    span {
+        position: relative;
+        left: 0%;
+    }
+    p {
+        padding: 10px;
+        margin: 0;
+    }
+</style>
 <body>
     <div class="container">
-        <h4>收到的留言</h4>
+        <h4 class="center">收到的溫暖</h4>
         <div class="reply"></div>
     </div>
 </body>
