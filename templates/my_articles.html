@@ -59,8 +59,9 @@
                         <small>${element["time"]}</small>
                         <p>${element["content"]}</p>
                         <small>留言數：${element["replies"]}</small>
-                        <button type="button" class="btn btn-warning" id="reply-${element["article_id"]} 
-                        onclick="watchAllReply(${element["article_id"]})">
+                        <button type="button" class="btn btn-warning" id="reply-${element["article_id"]}" 
+                            onclick="watchAllReplies(${element["article_id"]})"
+                        >
                             查看留言
                         </button>
                     </div>
@@ -69,9 +70,9 @@
             )
         }
     }
-    function watchAllReply(id){
+    function watchAllReplies(id){
         console.log("success")
-        window.location.href =`receive/${id}`;
+        window.location.href =`/page/receive/${id}`;
     }
     $(document).ready(() => {
         tmpPutAllArticle()
