@@ -8,7 +8,6 @@ from chatbot.views import (
     send_counselors_information_to_user,
     send_patient_information_to_counselor,
 )
-from datetime import datetime
 
 import random
 
@@ -61,6 +60,9 @@ def get_null_value(value):
     if value == '':
         return None
     return value
+
+def get_formatting_date(date):
+    return date.strftime('%Y-%m-%d %H:%M:%S')
 
 @csrf_exempt
 def counselor_profile_process(request):
@@ -117,10 +119,10 @@ def get_article(request, id):
         reply_data.append({
             'reply_id': reply.id,
             'content': reply.content,
-            'time': reply.time
+            'time': get_formatting_date(reply.time),
         })
     return_data['replies'] = reply_data
-    return_data['time'] = article.time
+    return_data['time'] = get_formatting_date(article.time)
     return http.JsonResponse(return_data, status=201)
 
 def get_articles(request):
@@ -144,7 +146,7 @@ def get_user_articles(request, user_id):
             "article_id" : article.id,
             "title" : article.title,
             "content" : article.content,
-            "time" : article.time,
+            "time" : get_formatting_date(article.time),
             "replies" : Reply.objects.filter(article=article.id).count(),
         })
     return http.JsonResponse({ "articles" : result }, status=200)
