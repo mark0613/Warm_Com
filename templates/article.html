@@ -18,6 +18,7 @@
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
     <script src="{% static 'js/main.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
 </head>
 <script>
     function getTitle(){
@@ -51,23 +52,18 @@
         })
     });
 </script>
-<style>
-    textarea{
-        resize: none;
-    }
-</style>
 <body>
     <div class="container">
-        <h4>討拍發文</h4>
-        <div class="type">
+        <h4 class="center">發表文章</h4>
+        <div class="type padding-5">
             <label>文章標題：</label>
             <input type="text" id="title">
         </div>
-        <div class="article">
+        <div class="article padding-5">
             <label>文章內容：</label><br>
-            <textarea placeholder="想說點什麼?" cols="50%" rows="10%" id="article"></textarea>
+            <textarea placeholder="想說點什麼?" cols="30%" rows="8%" id="article"></textarea>
         </div>
-        <div class="post">
+        <div class="post center">
             <button type="button" class="btn btn-warning" id="post">立即發文</button>
         </div>
     </div>
