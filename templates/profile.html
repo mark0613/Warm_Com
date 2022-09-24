@@ -27,7 +27,6 @@
     <script src="{% static 'js/main.js' %}"></script>
 </head>
 <script>
-    let liffId = "1657491571-WOlLDPB1";
     function getGender(){
         let gender = $('input[name=genderInline]:checked').val()
         if (gender === "none")
@@ -60,7 +59,7 @@
     }
 
     async function sendProfile() {
-        let profile = await getUserProfile(liffId);
+        let profile = await getUserProfile();
         let data = {
             "user_id" : profile.userId,
             "user_name" : profile.displayName,
@@ -78,7 +77,7 @@
             data,
             (response) => {
                 alert(response.message);
-                closeLiffWindow(liffId);
+                closeLiffWindow();
             }
         )
         
