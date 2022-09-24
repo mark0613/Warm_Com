@@ -11,8 +11,8 @@
                 for (let i=0; i<response.length; i++) {
                     let id = response[i]["article_id"];
                     $(`#candle${i}`).attr('id',`${id}`);
-                    if (response[i]["replies"] === 0) {
-                        $(`#${id}`).attr('src', `{% static 'img/candle-dark.png' %}`);
+                    if (response[i]["replies"] !== 0) {
+                        $(`#${id}`).attr('src', `{% static 'img/candle-bright.png' %}`);
                     }
                 }
             }
@@ -70,19 +70,19 @@
     </div>
     <div class="candles">
         <button class="candle" onclick="turnToReplyPage(this)">
-            <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle0" class="candle0">
+            <img src="{% static 'img/candle-dark.png' %}" alt="image" id="candle0" class="candle0">
         </button>
         <button class="candle" onclick="turnToReplyPage(this)">
-            <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle1" class="candle1">
+            <img src="{% static 'img/candle-dark.png' %}" alt="image" id="candle1" class="candle1">
         </button>
         <button class="candle" onclick="turnToReplyPage(this)">
-            <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle2" class="candle2">
+            <img src="{% static 'img/candle-dark.png' %}" alt="image" id="candle2" class="candle2">
         </button>
         <button class="candle" onclick="turnToReplyPage(this)">
-            <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle3" class="candle3">
+            <img src="{% static 'img/candle-dark.png' %}" alt="image" id="candle3" class="candle3">
         </button>
         <button class="candle" onclick="turnToReplyPage(this)">
-            <img src="{% static 'img/candle-bright.png' %}" alt="image" id="candle4" class="candle4">
+            <img src="{% static 'img/candle-dark.png' %}" alt="image" id="candle4" class="candle4">
         </button>
     </div>
 </div>
