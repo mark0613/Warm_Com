@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,34 +13,37 @@
     
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- liff sdk -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <script>
     function getTitle(){
         let title = $('#title').val()
         return title 
     }
-    function getArticle(){
+    function getContent(){
         let article = $('#article').val()
         return article
     }
-    function sendArticleInfo(){
+    async function sendArticleInfo(){
+        let profile = await getUserProfile();
         let data = {
-            "user_id" : "user_id of creator",
+            "user_id" : profile.userId,
             "title" : getTitle(),
-            "content" : getArticle()
+            "content" : getContent(),
         }
         console.log(data)
-        // $.post(
-        //     "",
-        //     data,
-        //     (response, status) => {
-        //         if (status == "success") {
-        //             if (response["status"] == "success"){
-                            //window.alert("success")
-        //             }
-        //         }
-        //     }
-        // )
+        jq.post(
+            "/api/article",
+            data,
+            (response) => {
+                alert(response.message);
+                closeLiffWindow();
+            }
+        )
     }
     $(document).ready(() => {
         $("#post").click(() => {

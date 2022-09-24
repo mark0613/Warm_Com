@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -16,6 +18,11 @@
     
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- liff sdk -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <script>
     function getType(){
@@ -26,13 +33,20 @@
         let brief = $('#brief').val()
         return brief
     }
-    function sentPairInfo(){
+    async function sentPairInfo(){
+        let profile = await getUserProfile();
         let data = {
-            "user_id" : "",
+            "user_id" : profile.userId,
+            "brief" : getBrief(),
             "types" : getType(),
-            "brief" : getBrief()
         }
-        console.log(data)
+        jq.post(
+            "/api/pair",
+            data,
+            (response) => {
+                closeLiffWindow();
+            }
+        )
     }
     $(document).ready(() => {
         $("#pair").click(() => {
