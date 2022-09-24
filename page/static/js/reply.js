@@ -1,8 +1,3 @@
-ARTICLE = {
-    title: "文章標題",
-    content: "文章內容",
-    time: "文章日期"
-}
 function getArticleId(){
     let url = location.href
     let article_id = url.split('/').slice(-1)
@@ -12,32 +7,27 @@ function getReplyContent(){
     let reply_content = $('#reply-content').val()
     return reply_content
 } 
-function giveReply(){
+async function giveReply(){
+    let profile = await getUserProfile()
     let data = {
+        "user_id" : profile.userId,
         "article_id" : getArticleId(),
-        "user_id" : "...",
-        "content" : getReplyContent()
+        "content" : getReplyContent(),
     }
-    console.log(data)
-    // $.post(
-    //     "",
-    //     data,
-    //     (response, status) => {
-    //         if (status == "success") {
-    //             if (response["status"] == "success"){
-                        //window.alert("success")
-    //             }
-    //         }
-    //     }
-    // )
+    jq.post(
+        "/api/reply",
+        data,
+        (response) => {
+            alert(response.message);
+        }
+    )
 }
 $(document).ready(() => {
-    putArticle()
-    $("#reply").click(() => {
-        giveReply()
-        window.location.replace("give_all");
+    $("#reply").click(async () => {
+        await giveReply()
+        window.location.href = "/page/give_all";
     })
     $("#back").click(() => {
-        window.location.replace("give_all");
+        window.location.href = "/page/give_all";
     })
 });
