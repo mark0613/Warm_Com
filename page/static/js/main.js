@@ -1,6 +1,7 @@
 var jq = $.noConflict();
+var liffId = "1657491571-RNWZXBEN";
 
-async function getUserProfile(liffId) {
+async function getUserProfile() {
     return await liff
     .init({
         liffId: liffId,
@@ -8,6 +9,7 @@ async function getUserProfile(liffId) {
     .then(
         (resolve) => {
             if (!liff.isLoggedIn()) {
+                sessionStorage.setItem('liffLoginRedirect', location.href)
                 liff.login();
             }
             return liff.getProfile()
@@ -24,8 +26,8 @@ async function getUserProfile(liffId) {
     )  
 }
 
-async function closeLiffWindow(liffId) {
-    liff
+async function closeLiffWindow() {
+    await liff
     .init({
         liffId: liffId,
     })
@@ -36,7 +38,7 @@ async function closeLiffWindow(liffId) {
 
 window.onload = async function() {
     // TODO: loading(spinner )
-    // let data = await getUserProfile("1657491571-L0G01dnZ");
+    // let data = await getUserProfile();
     // TODO: remove loading
     // console.log(data);
 }
