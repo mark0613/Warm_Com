@@ -30,15 +30,13 @@
 <script>
     function getGender(){
         let gender = $('input[name=genderInline]:checked').val()
-        if (gender === "none")
-            return null
-        return Number(gender)
+        return gender
     }
     function getAge(){
         let age = $("#age").val()
         if (age === "")
             return null
-        return Number(age)
+        return age
     }
     function getJob(){
         let job = $("#job").val()
@@ -114,7 +112,7 @@
                 <label class="custom-control-label" for="gender-female">女</label>
             </div>
             <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="profess" name="genderInline" class="custom-control-input" value="不透漏">
+                <input type="radio" id="profess" name="genderInline" class="custom-control-input" value="不透露">
                 <label class="custom-control-label" for="profess">不願透露</label>
             </div>
         </div>
