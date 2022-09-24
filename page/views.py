@@ -17,12 +17,12 @@ def view_profile_page(request):
 def view_give_all_page(request):
     return render(request, 'give_all.html')
 
-def view_give_page(request, id):
+def view_reply_page(request, id):
     article = Article.objects.get(id=id)
     content = {
         "article" : article
     }
-    return render(request, 'give.html', content)
+    return render(request, 'reply.html', content)
 
 def view_receive_all_page(request):
     return render(request, 'receive_all.html')
