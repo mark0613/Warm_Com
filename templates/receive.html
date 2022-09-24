@@ -13,6 +13,11 @@
     
     <!-- jquery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- liff sdk -->
+    <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+    <script src="{% static 'js/main.js' %}"></script>
 </head>
 <style>
     #back {
@@ -48,33 +53,14 @@
     }
 </style>
 <script>
-    ARTICLE = {
-        title: "文章標題",
-        content: "文章內容",
-        time: "文章日期",
-        "replys" : [
-            {
-                "reply_id" : 1,
-                "content" : "AAA"
-            },
-            {
-                "reply_id" : 2,
-                "content" : "BBB"
-            },
-            {
-                "reply_id" : 3,
-                "content" : "CCC"
-            }
-        ],
+    function putArticle(article){
+        $('#date small').text(article["time"])
+        $('#title').text(article["title"])
+        $('#content').text(article["content"])
     }
-    function putArticle(){
-        $('#date small').text(ARTICLE["time"])
-        $('#title').text(ARTICLE["title"])
-        $('#content').text(ARTICLE["content"])
-    }
-    function putReply(){
+    function putReply(replies){
         let reply = $('.reply')
-        for (let element of ARTICLE["replys"]) {
+        for (let element of replies) {
             reply.append(
                 `
                 <div class="card  mb-3">
@@ -87,14 +73,22 @@
         }
     }
     $(document).ready(() => {
-        putArticle()
-        putReply()
+        let articleId = $("#article-id").val();
+        jq.get(
+            `/api/article/${articleId}`,
+            {},
+            (response) => {
+                putArticle(response);
+                putReply(response.replies);
+            }
+        )
         $("#back").click(() => {
             window.location.replace("my-articles");
         })
 });
 </script>
 <body>
+    <input type="hidden" name="article-id" id="article-id" value="{{ article_id }}">
     <div class="container">
         <div class="back">
             <button type="button" class="btn" id="back">
