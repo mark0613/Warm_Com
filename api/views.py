@@ -8,6 +8,7 @@ from chatbot.views import (
     send_counselors_information_to_user,
     send_patient_information_to_counselor,
 )
+from datetime import datetime
 
 import random
 
@@ -122,7 +123,6 @@ def get_article(request, id):
     return_data['time'] = article.time
     return http.JsonResponse(return_data, status=201)
 
-@csrf_exempt
 def get_articles(request):
     limit = int(request.GET.get('limit'))
     articles = random.sample(list(Article.objects.all()), limit)
@@ -135,6 +135,19 @@ def get_articles(request):
             "replies" : replies,
         })
     return http.JsonResponse(result, status=200, safe=False)
+
+def get_user_articles(request, user_id):
+    articles = Article.objects.filter(creator=user_id).order_by('-time')
+    result = []
+    for article in articles:
+        result.append({
+            "article_id" : article.id,
+            "title" : article.title,
+            "content" : article.content,
+            "time" : article.time,
+            "replies" : Reply.objects.filter(article=article.id).count(),
+        })
+    return http.JsonResponse({ "articles" : result }, status=200)
 
 @csrf_exempt
 def create_reply(request):

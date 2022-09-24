@@ -8,5 +8,6 @@ urlpatterns = [
     path('article', views.create_article),
     path('article/<int:id>', views.get_article),
     path('articles', views.get_articles),
+    path('articles/<str:user_id>', views.get_user_articles),
     path('reply', views.create_reply),
 ]
