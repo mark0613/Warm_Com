@@ -66,7 +66,30 @@
         )
         
     }
+    
+    async function loadProfile() {
+        let profile = await getUserProfile();
+        jq.get(
+            `/api/counselor/${profile.userId}`,
+            {},
+            (response) => {
+                console.log(response)
+                $(`input[name=genderInline][value="${response.gender}"]`).prop("checked", true);
+                $("#age").val(response.age);
+                $("#job").val(response.job);
+                $("#description").val(response.description);
+                $(`input[name=profession][value="${response.is_professional}"]`).prop("checked", true);
+                if (response.can_be_paired) {
+                    $('#pair').prop('checked', true);
+                }
+                $('#type').val(response.targets);
+                $('.selectpicker').selectpicker('refresh')
+                $('#text-line-id').val(response.line_id);
+            }
+        )
+    }
     $(document).ready(() => {
+        loadProfile();
         $("#save").click(() => {
             sendProfile();
         })
@@ -118,11 +141,11 @@
     <div class="professional padding-5">
         <label>是否有諮商師執照：</label>
         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="pro" name="profession" class="custom-control-input" value="1">
+            <input type="radio" id="pro" name="profession" class="custom-control-input" value="true">
             <label class="custom-control-label" for="pro">是</label>
         </div>
         <div class="custom-control custom-radio custom-control-inline">
-            <input type="radio" id="non-pro" name="profession" class="custom-control-input" value="">
+            <input type="radio" id="non-pro" name="profession" class="custom-control-input" value="false">
             <label class="custom-control-label" for="non-pro">否</label>
         </div>
     </div>

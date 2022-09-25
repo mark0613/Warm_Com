@@ -111,6 +111,26 @@ def counselor_profile_process(request):
             ).target.set(targets)
         return http.JsonResponse({ "message" : "成功" }, status=201)
 
+def get_counselor_profile(request, user_id):
+    try:
+        counselor = Counselor.objects.get(user_id=user_id)
+    except Counselor.DoesNotExist:
+        return http.JsonResponse({'message': '失敗'}, status=404)
+    result = {}
+    result["user_id"] = counselor.user_id
+    result["user_name"] = counselor.user_name
+    result["line_id"] = counselor.line_id
+    result["gender"] = counselor.gender
+    result["image"] = counselor.image
+    result["age"] = counselor.age
+    result["job"] = counselor.job
+    result["description"] = counselor.description
+    result["is_professional"] = counselor.is_professional
+    result["can_be_paired"] = counselor.can_be_paired
+    result["targets"] = [target.id for target in counselor.target.all()]
+    return http.JsonResponse(result, status=200)
+
+
 @csrf_exempt
 def create_article(request):
     if request.method == "POST":
