@@ -100,10 +100,13 @@ def create_article(request):
         user_id = request.POST['user_id']
         title = request.POST.get('title')
         content = request.POST.get('content')
-        print(user_id, title, content)
         article = Article.objects.create(creator=user_id, title=title, content=content)
         article.save()
-        return http.JsonResponse({'message': '成功'}, status=201)
+        result = {
+            'message' : '成功',
+            'article_id' : article.id,
+        }
+        return http.JsonResponse(result, status=201)
     return http.JsonResponse({'message': '失敗'}, status=404)
 
 def get_article(request, id):
