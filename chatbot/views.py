@@ -72,11 +72,38 @@ def send_message(user_id: str, message: str):
 
 def generate_counselors_information_template(filter_types: list):
     def generate_counselor_template(counselor: models.Counselor):
+        gender = counselor.gender
+        age = counselor.age
+        job = counselor.job
+        is_professional = counselor.is_professional
+
+        title = counselor.user_name
+        if len(gender) == 1 or age or is_professional:
+            tmp = ""
+            if len(gender) == 1:
+                tmp += gender
+            if age:
+                if tmp:
+                    tmp += "，"
+                tmp += str(age)
+            if tmp:
+                tmp += "，"
+            if is_professional:
+                tmp += "專業"
+            else:
+                tmp += "非專業"
+            title += f" ({tmp})"
+        
+        text = counselor.description
+        if job:
+            text = f"職業: {job}\n{text}"
+        else:
+            text = f"職業: 無\n{text}"
         return {
             "thumbnailImageUrl": counselor.image,
             "imageBackgroundColor": "#FFFFFF",
-            "title": counselor.user_name,
-            "text": counselor.description,
+            "title": title,
+            "text": text,
             "actions": [
                 {
                     "type": "postback",
@@ -92,10 +119,8 @@ def generate_counselors_information_template(filter_types: list):
         if idx == 0:
             target_type_condition = Q(target=target_type)
         else:
-            target_type_condition = target_type_condition | Q(
-                target=target_type)
-    counselors = models.Counselor.objects.filter(
-        target_type_condition).distinct()[0:10]
+            target_type_condition = target_type_condition | Q(target=target_type)
+    counselors = models.Counselor.objects.filter(target_type_condition & Q(can_be_paired=True)).distinct()[0:10]
     if len(counselors) == 0:
         return {}
     return {
