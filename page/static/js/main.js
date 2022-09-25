@@ -1,5 +1,4 @@
 var jq = $.noConflict();
-var liffId = "1657491571-RNWZXBEN";
 
 async function getUserProfile() {
     return await liff

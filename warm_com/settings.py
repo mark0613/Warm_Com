@@ -30,6 +30,7 @@ BASE_DOMAIN = os.getenv('BASE_DOMAIN')
 LINE_CHANNEL_ACCESS_TOKEN = str(os.getenv('LINE_CHANNEL_ACCESS_TOKEN'))
 LINE_CHANNEL_SECRET = str(os.getenv('LINE_CHANNEL_SECRET'))
 SECRET_KEY = os.getenv('SECRET_KEY')
+LIFF_ID = os.getenv('LIFF_ID')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,6 +77,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
+                'warm_com.context_processors.liff_id',
             ],
         },
     },

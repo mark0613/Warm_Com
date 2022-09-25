@@ -15,7 +15,7 @@
     <script src="{% static 'js/main.js' %}"></script>
     <script>
         window.onload = async function() {
-            await liff.init({ liffId: '1657491571-RNWZXBEN' });
+            await liff.init({ liffId: '{{ liff_id }}' });
             if (new URL(window.location).searchParams.get('liff.state')) {
                 return;
             }

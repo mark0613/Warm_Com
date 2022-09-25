@@ -27,6 +27,9 @@
     <!-- liff sdk -->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
+    <script>
+        var liffId = "{{ liff_id }}";
+    </script>
     <script src="{% static 'js/main.js' %}"></script>
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     {% block js_or_css %}
