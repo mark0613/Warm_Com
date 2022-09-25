@@ -35,7 +35,7 @@ def receive_message(request):
             data = resolve_postback_data(event.postback.data)
             action = data["action"]
             if action == "pair":
-                send_to_user(user_id, TextSendMessage(text="已發送邀請給該諮商師，等待回復中..."))
+                send_message(user_id, "已發送邀請給該諮商師，等待回復中...")
                 rq.post(
                     f"{settings.BASE_DOMAIN}/api/appoint",
                     {
@@ -44,11 +44,12 @@ def receive_message(request):
                     }
                 )
             if action == "help":
-                send_to_user(user_id, TextSendMessage(text="已接受"))
+                send_message(user_id, "已接受，將您的 id 傳送給對方")
                 rq.post(
                     f"{settings.BASE_DOMAIN}/api/help",
                     {
                         "user_id" : data["target_id"],
+                        "counselor_id" : user_id,
                     }
                 )
 
@@ -65,6 +66,9 @@ def resolve_postback_data(postback_data: str):
 def send_to_user(user_id: str, message: Message):
     line_bot_api.push_message(user_id, message)
 
+def send_message(user_id: str, message: str):
+    msg = TextSendMessage(text=message)
+    send_to_user(user_id, msg)
 
 def generate_counselors_information_template(filter_types: list):
     def generate_counselor_template(counselor: models.Counselor):

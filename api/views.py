@@ -7,6 +7,7 @@ from chatbot.models import Counselor, Target, Article, Reply
 from chatbot.views import (
     send_counselors_information_to_user,
     send_patient_information_to_counselor,
+    send_message,
 )
 
 import random
@@ -48,7 +49,10 @@ def appoint_process(request):
 @csrf_exempt
 def help_process(request):
     if request.method == 'POST':
-        # TODO: 發送好友ID給對方
+        user_id = request.POST['user_id']
+        counselor_id = request.POST['counselor_id']
+        counselor_line_id = Counselor.objects.filter(user_id=counselor_id).first().line_id
+        send_message(user_id, f"諮商師已接受，這是他的 line id:\n{counselor_line_id}\n或是點選連結快速開啟:\nhttps://line.me/ti/p/~{counselor_line_id}")
         return http.JsonResponse(
             {
                 "message" : "成功",

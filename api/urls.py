@@ -10,4 +10,5 @@ urlpatterns = [
     path('articles', views.get_articles),
     path('articles/<str:user_id>', views.get_user_articles),
     path('reply', views.create_reply),
+    path('help', views.help_process),
 ]
