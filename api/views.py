@@ -82,20 +82,33 @@ def counselor_profile_process(request):
         is_professional = bool(request.POST['is_professional'])
         can_be_paired = bool(request.POST['can_be_paired'])
         targets = request.POST.getlist('targets[]')
-        counselor = Counselor.objects.create(
-            user_id = user_id,
-            user_name = user_name,
-            line_id = line_id,
-            gender = gender,
-            image = image,
-            age = age,
-            job = job,
-            description = description,
-            is_professional = is_professional,
-            can_be_paired = can_be_paired,
-        )
-        for target in targets:
-            counselor.target.add(Target.objects.get(id=target))
+        user_exist = Counselor.objects.filter(user_id=user_id).count() > 0
+        if user_exist:
+            counselor = Counselor.objects.get(user_id=user_id)
+            counselor.user_name = user_name
+            counselor.line_id = line_id
+            counselor.gender = gender
+            counselor.image = image
+            counselor.age = age
+            counselor.job = job
+            counselor.description = description
+            counselor.is_professional = is_professional
+            counselor.can_be_paired = can_be_paired
+            counselor.target.set(targets)
+            counselor.save()
+        else:
+            Counselor.objects.create(
+                user_id = user_id,
+                user_name = user_name,
+                line_id = line_id,
+                gender = gender,
+                image = image,
+                age = age,
+                job = job,
+                description = description,
+                is_professional = is_professional,
+                can_be_paired = can_be_paired,
+            ).target.set(targets)
         return http.JsonResponse({ "message" : "成功" }, status=201)
 
 @csrf_exempt
