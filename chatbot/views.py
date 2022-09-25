@@ -47,7 +47,7 @@ def receive_message(request):
             data = resolve_postback_data(event.postback.data)
             action = data["action"]
             if action == "pair":
-                send_message(user_id, "已發送邀請給該諮商師，等待回復中...")
+                send_message(user_id, "已發送邀請給該諮商師，等待回覆中...")
                 rq.post(
                     f"{settings.BASE_DOMAIN}/api/appoint",
                     {
