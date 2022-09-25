@@ -23,7 +23,7 @@
             data,
             (response) => {
                 alert(response.message);
-                closeLiffWindow();
+                window.location.href = `/page/receive/${response.article_id}`;
             }
         )
     }
