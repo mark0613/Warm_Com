@@ -121,7 +121,7 @@ Counselor.objects.all().delete()
 Counselor.objects.create(
     user_id = user[0]["user_id"],
     user_name = user[0]["display_name"],
-    line_id = "xxxx",
+    line_id = user[0]["line_id"],
     gender = "男",
     age = "20",
     job = "學生",
@@ -133,7 +133,7 @@ Counselor.objects.create(
 Counselor.objects.create(
     user_id = user[1]["user_id"],
     user_name = user[1]["display_name"],
-    line_id = "oooo",
+    line_id = user[1]["line_id"],
     gender = "不透露",
     age = None,
     job = "諮商師",
@@ -145,7 +145,7 @@ Counselor.objects.create(
 Counselor.objects.create(
     user_id = user[2]["user_id"],
     user_name = user[2]["display_name"],
-    line_id = "idid",
+    line_id = user[2]["line_id"],
     gender = "女",
     age = "20",
     job = None,
