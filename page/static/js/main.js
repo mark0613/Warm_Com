@@ -1,19 +1,23 @@
-async function getUserId() {
+var jq = $.noConflict();
+var liffId = "1657491571-RNWZXBEN";
+
+async function getUserProfile() {
     return await liff
     .init({
-        liffId: "1657491571-L0G01dnZ",
+        liffId: liffId,
     })
     .then(
         (resolve) => {
-        // if (!liff.isLoggedIn()) {
-        //     liff.login();
-        // }
+            if (!liff.isLoggedIn()) {
+                sessionStorage.setItem('liffLoginRedirect', location.href)
+                liff.login();
+            }
             return liff.getProfile()
         }
     )
     .then(
         (resolve) => {
-            return resolve["userId"];
+            return resolve;
         },
         (reject) => {
             // alert("Error")
@@ -22,9 +26,27 @@ async function getUserId() {
     )  
 }
 
+async function closeLiffWindow() {
+    await liff
+    .init({
+        liffId: liffId,
+    })
+    .then(() => {
+        liff.closeWindow();
+    })
+}
+
+function showSpinner() {
+    $("#cover-spinner").show();
+}
+
+function hideSpinner() {
+    $("#cover-spinner").hide();
+}
+
 window.onload = async function() {
     // TODO: loading(spinner )
-    let data = await getUserId();
+    // let data = await getUserProfile();
     // TODO: remove loading
-    console.log(data);
+    // console.log(data);
 }

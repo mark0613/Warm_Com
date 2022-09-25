@@ -8,6 +8,8 @@
 4. 輸入 `pip install -r requirements.txt`
 5. 輸入 `python manage.py createsuperuser`
 6. 輸入 `python manage.py makemigrations chatbot`
+7. 建立 `team_info.py` 在根目錄底下，並填入相關資訊
+8. 在 terminal 輸入 `python manage.py shell`，並把 `seed.py` 所有內容貼入
 
 ### Every time
 1. pull

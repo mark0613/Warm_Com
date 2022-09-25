@@ -5,9 +5,27 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Warm_Com</title>
+    <!-- jquery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- liff sdk -->
     <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+    
     <script src="{% static 'js/main.js' %}"></script>
+    <script>
+        window.onload = async function() {
+            await liff.init({ liffId: '1657491571-RNWZXBEN' });
+            if (new URL(window.location).searchParams.get('liff.state')) {
+                return;
+            }
+            const liffLoginRedirect = sessionStorage.getItem('liffLoginRedirect')
+            if (_.isString(liffLoginRedirect)) {
+                sessionStorage.removeItem('liffLoginRedirect');
+                location.href = liffLoginRedirect;
+            }
+        }
+    </script>
 </head>
 <body>
 
