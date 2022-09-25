@@ -202,5 +202,8 @@ def create_reply(request):
         article = Article.objects.get(id=article_id)
         reply = Reply.objects.create(article=article, creator=user_id, content=content)
         reply.save()
+
+        creator_id = Article.objects.get(id=article_id).creator
+        send_message(creator_id, "有人回應您的文章囉，快去看看吧!")
         return http.JsonResponse({'message': '成功'}, status=201)
     return http.JsonResponse({'message': '失敗'}, status=404)
