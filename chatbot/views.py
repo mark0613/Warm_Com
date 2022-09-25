@@ -24,24 +24,53 @@ bot_description = """
 WarmCom，全稱為 Warm Company 有溫暖陪伴的意思，同時也諧音 Warm Come 表示溫暖來臨之意。
 
 WarmCom 提供這些服務：
-1. 發表文章：以匿名的方式發表文章
-2. 給予溫暖：查看別人的文章並溫暖地回應對方
-3. 收到溫暖：查看所收到來自他人的溫暖
-4. 配對諮商：協助您找到適合的諮商師
-5. 成為諮商師：若您願意諮商他人，則可填寫諮商資訊，並開啟配對功能
+$ 發表文章：以匿名的方式發表文章
+$ 給予溫暖：查看別人的文章並溫暖地回應對方
+$ 收到溫暖：查看所收到來自他人的溫暖
+$ 配對諮商：協助您找到適合的諮商師
+$ 成為諮商師：若您願意諮商他人，則可填寫諮商資訊，並開啟配對功能
 """.split("\n")[1:]
 bot_description = "\n".join(bot_description)
 
 @csrf_exempt
 def receive_message(request):
-    global pre_message
     signature = request.META['HTTP_X_LINE_SIGNATURE']
     body = request.body.decode('utf-8')
     events = parser.parse(body, signature)
     for event in events:
         if isinstance(event, MessageEvent):
             if event.message.text == "這個機器人是做什麼的?":
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=bot_description))
+                msg = TextSendMessage(
+                    text = bot_description,
+                    emojis = [
+                        {
+                            "index": 77,
+                            "productId": "5ac2213e040ab15980c9b447",
+                            "emojiId": "017"
+                        },
+                        {
+                            "index" : 95,
+                            "productId" : "5ac2213e040ab15980c9b447",
+                            "emojiId" : "018",
+                        },
+                        {
+                            "index" : 118,
+                            "productId" : "5ac2213e040ab15980c9b447",
+                            "emojiId" : "019",
+                        },
+                        {
+                            "index" : 138,
+                            "productId" : "5ac2213e040ab15980c9b447",
+                            "emojiId" : "020",
+                        },
+                        {
+                            "index" : 157,
+                            "productId" : "5ac2213e040ab15980c9b447",
+                            "emojiId" : "021",
+                        },
+                    ]
+                )
+                line_bot_api.reply_message(event.reply_token, msg)
         if isinstance(event, PostbackEvent):
             user_id = event.source.user_id
             data = resolve_postback_data(event.postback.data)
