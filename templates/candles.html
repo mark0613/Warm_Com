@@ -15,6 +15,7 @@
                         $(`#${id}`).attr('src', `{% static 'img/candle-bright.png' %}`);
                     }
                 }
+                hideSpinner();
             }
         )
     }
@@ -23,7 +24,8 @@
         window.location.href = `reply/${id}`;
     }
     $(document).ready(() => {
-        replaceCandle()
+        showSpinner();
+        replaceCandle();
     });
 </script>
 <style>

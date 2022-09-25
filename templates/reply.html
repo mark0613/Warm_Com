@@ -30,7 +30,8 @@ async function giveReply(){
 }
 $(document).ready(() => {
     $("#reply").click(async () => {
-        await giveReply()
+        showSpinner();
+        await giveReply();
         window.location.href = "/page/candles";
     })
     $("#back").click(() => {

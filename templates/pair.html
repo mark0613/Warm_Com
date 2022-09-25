@@ -26,8 +26,9 @@
         )
     }
     $(document).ready(() => {
-        $("#pair").click(() => {
-            sentPairInfo()
+        $("#pair").click(async () => {
+            showSpinner();
+            await sentPairInfo();
         })
     });
 </script>

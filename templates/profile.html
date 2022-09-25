@@ -88,9 +88,12 @@
             }
         )
     }
-    $(document).ready(() => {
-        loadProfile();
+    $(document).ready(async () => {
+        showSpinner();
+        await loadProfile();
+        hideSpinner();
         $("#save").click(() => {
+            showSpinner();
             sendProfile();
         })
     });

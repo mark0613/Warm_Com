@@ -56,6 +56,7 @@
         }
     }
     $(document).ready(() => {
+        showSpinner();
         let articleId = $("#article-id").val();
         jq.get(
             `/api/article/${articleId}`,
@@ -63,6 +64,7 @@
             (response) => {
                 putArticle(response);
                 putReply(response.replies);
+                hideSpinner();
             }
         )
         $("#back").click(() => {
