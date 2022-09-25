@@ -10,18 +10,25 @@
             {},
             (response) => {
                 for (let element of response["articles"]) {
+                    let limitLength = 40;
+                    if (element["content"].length > limitLength) {
+                        element["content"] = element["content"].substring(0, limitLength) + "...";
+                    }
                     reply.append(
                         `
-                        <div class="card w-100">
+                        <div class="card w-100 margin-10 height-100">
                             <div class="card-body">
                                 <h6 class="card-title">${element["title"]}</h6>
-                                <span>${element["content"]}</span><br>
-                                <span>${element["time"]}</span>
-                                <span>${element["replies"]}</span>
-                                <button type="button" class="btn btn-warning" id="reply-${element["article_id"]} 
-                                onclick="watchAllReply(${element["article_id"]})">
-                                    查看留言
-                                </button>
+                                <small>${element["time"]}</small>
+                                <p>${element["content"]}</p>
+                                <div class="right">
+                                    <small>留言數：${element["replies"]}</small>
+                                    <button type="button" class="btn btn-warning" id="reply-${element["article_id"]}" 
+                                        onclick="watchAllReplies(${element["article_id"]})"
+                                    >
+                                        查看留言
+                                    </button>
+                                </div>
                             </div>
                         </div>
                         `
@@ -30,53 +37,12 @@
             }
         )
     }
-    function tmpPutAllArticle(){
-        let ARTICLE = {
-            "articles" : [
-                {
-                    "title": "QQQQQQQQQQ文章標題",
-                    "content": "BBBBBBBBBBBBBBBBBBBBBBBBBBBB文章內容",
-                    "time": "2022-09-30",
-                    "replies": 3,
-                    "article_id": 100
-                },
-                {
-                    "title": "AAAAAAAAAAAAAAAAAAAAA文章標題",
-                    "content": "BBBBBFFFFFFFFFFFFFFFF文章內容",
-                    "time": "2022-09-24",
-                    "replies": 4,
-                    "article_id": 200
-                },
-            ]
-        }
-        let reply = $('.reply');
-        for (let element of ARTICLE["articles"]) {
-            reply.append(
-                `
-                <div class="card w-100 margin-10">
-                    <div class="card-body">
-                        <h6 class="card-title">${element["title"]}</h6>
-                        <small>${element["time"]}</small>
-                        <p>${element["content"]}</p>
-                        <small>留言數：${element["replies"]}</small>
-                        <button type="button" class="btn btn-warning" id="reply-${element["article_id"]}" 
-                            onclick="watchAllReplies(${element["article_id"]})"
-                        >
-                            查看留言
-                        </button>
-                    </div>
-                </div>
-                `
-            )
-        }
-    }
     function watchAllReplies(id){
         console.log("success")
         window.location.href =`/page/receive/${id}`;
     }
     $(document).ready(() => {
-        tmpPutAllArticle()
-        //putAllArticle()
+        putAllArticle()
     });
 </script>
 <style>
@@ -89,9 +55,13 @@
     .card-title {
         margin: 0;
     }
-    button {
+    .right {
         position: absolute;
         right: 5%;
+        bottom: 5%;
+    }
+    .height-100 {
+        height: 180px;
     }
     span {
         position: relative;
@@ -100,6 +70,9 @@
     p {
         padding: 10px;
         margin: 0;
+    }
+    small {
+        padding-right: 6px;
     }
 </style>
 {% endblock %}
